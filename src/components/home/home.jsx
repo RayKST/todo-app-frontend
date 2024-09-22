@@ -1,11 +1,19 @@
 import './home.css';
 import instance from '../api/api';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+//import EditTask from '../edittask/edittask';
 
 function Home() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-
+    let navigate = useNavigate(); 
+    /*
+    const routeChange = () =>{ 
+      let path = ; 
+      navigate(path);
+    }
+    */
     useEffect(() => {
         const getData = async () => {
             try {
@@ -20,12 +28,17 @@ function Home() {
 
         getData();
     }, []);
-
+    
+    function handleEditTask(task) 
+    {
+        console.log(task);
+    }
+    
     if (error) return <div>Error: {error.message}</div>;
 
-    // Adicione uma verificação para garantir que 'data' e 'data.tasks' existem
+    
     if (!data || !data.tasks) {
-        return <div>Loading...</div>; // Ou um indicador de carregamento
+        return <div>Loading...</div>;
     }
 
     const tasksCards = data.tasks.map((task, index) => (
@@ -35,7 +48,7 @@ function Home() {
                 <p className="card-description">{task['Description']}</p>
                 <p className="card-start-date">{task['StartDate']}</p>
                 <p className="card-end-date">{task['EndDate']}</p>
-                <button className='card-button'>Editar tarefa</button>
+                <button className='card-button' onClick={handleEditTask}>Editar tarefa</button>
             </div>
         </div>
     ));
