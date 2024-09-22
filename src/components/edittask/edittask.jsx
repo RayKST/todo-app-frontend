@@ -1,12 +1,15 @@
 import '../home/home.css';
 import instance from '../api/api';
 import React, { useEffect, useState } from 'react';
+import { useMyContext } from '../context';
 
-
-function EditTask ({task})
+function EditTask ()
 {
     //[data, setData] = useState(task);
-    console.log(task);
+    const { context } = useMyContext();
+    console.log(context);
+    const task = context;
+    
 
 
 
