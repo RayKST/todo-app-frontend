@@ -1,32 +1,21 @@
 import './home.css';
-import instance from '../api/api';
+import TaskCalls from '../api/taskcalls'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useMyContext } from '../context';
+//import { useMyContext } from '../context';
 
 function Home() {
-    const { setContext } = useMyContext();
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const response = await instance.get('/api/task');
-                setData(response.data);
-            } catch (err) {
-                setError(err);
-            }
-        };
-
-        getData();
+        new TaskCalls().GetTask(setData, setError);
     }, []);
     
     function handleEditTask(task) 
     {
-        setContext(task);
-        navigate('/edit-task');
+        navigate(`/edit-task?taskID=${task.task['ID']}`);
     }
     
     if (error) return <div>Error: {error.message}</div>;

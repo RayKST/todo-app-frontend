@@ -1,30 +1,54 @@
 import '../home/home.css';
-import instance from '../api/api';
 import React, { useEffect, useState } from 'react';
-import { useMyContext } from '../context';
+import { useLocation } from 'react-router-dom';
+import TaskCalls from '../api/taskcalls';
 
-function EditTask ()
-{
-    //[data, setData] = useState(task);
-    const { context } = useMyContext();
-    console.log(context);
-    const task = context;
-    
+function EditTask() {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+    const location = useLocation();
+    const taskID = new URLSearchParams(location.search).get('taskID');
+    const taskCallsInstance = new TaskCalls();
 
+    useEffect(() => {
+        taskCallsInstance.GetTask(setData, setError, taskID);
+    }, [taskID]);
 
+    if (error) return <div>Error: {error.message}</div>;
 
-    return 
-    (
-    <div className="card-content">
-        <h2 className="card-title">{task['Title']}</h2>
-        <p className="card-description">{task['Description']}</p>
-        <p className="card-start-date">{task['StartDate']}</p>
-        <p className="card-end-date">{task['EndDate']}</p>
-    </div>
-       
-    )
+    if (!data || !data.tasks) {
+        return <div>Loading...</div>;
+    }
+
+    const task = data.tasks[0];
+
+    async function updateTask(event) {
+        event.preventDefault(); // Previne o comportamento padrão do formulário
+
+        const formData = new FormData(event.target);
+        const taskData = {};
+        taskData['ID'] = taskID;
+        formData.forEach((value, key) => {
+            taskData[key] = value;
+        });
+
+        try {
+            const response = await taskCallsInstance.UpdateTask(taskData, setError);
+            console.log(response); 
+        } catch (err) {
+            console.error('Update failed:', err);
+        }
+    }
+
+    return (
+        <form onSubmit={updateTask}>
+            <input name="Title" placeholder={task['Title']} />
+            <input name="Description" placeholder={task['Description']} />
+            <input name="StartDate" placeholder={task['StartDate']} />
+            <input name="EndDate" placeholder={task['EndDate']} />
+            <button type="submit">Modificar</button>
+        </form>
+    );
 }
-
-
 
 export default EditTask;
