@@ -3,12 +3,14 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { MyProvider } from './components/context';
+import Header from "./components/header/header"
 import Home from "./components/home/home";
 import EditTask from "./components/edittask/edittask";
 
 const App = () => {
   return (  
     <Router>
+      <Header />
       <MyProvider>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,4 +1,4 @@
-import '../home/home.css';
+import './edittask.css';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import TaskCalls from '../api/taskcalls';
@@ -41,13 +41,16 @@ function EditTask() {
     }
 
     return (
-        <form onSubmit={updateTask}>
-            <input name="Title" placeholder={task['Title']} />
-            <input name="Description" placeholder={task['Description']} />
-            <input name="StartDate" placeholder={task['StartDate']} />
-            <input name="EndDate" placeholder={task['EndDate']} />
-            <button type="submit">Modificar</button>
+    <div className="form-container">
+        <form className="edit-task-form" onSubmit={updateTask}>
+            <h2>Editar Tarefa</h2>
+            <input name="Title" placeholder={task['Title']} required />
+            <input name="Description" placeholder={task['Description']} required />
+            <input name="StartDate" type="date" placeholder={task['StartDate']} required />
+            <input name="EndDate" type="date" placeholder={task['EndDate']} required />
+            <button type="submit" className="submit-button">Modificar</button>
         </form>
+    </div>
     );
 }
 

@@ -1,0 +1,33 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #007bff;
+    color: white;
+}
+
+.task-actions {
+    display: flex;
+    gap: 16px; /* Espaçamento entre os botões */
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #003d7a;
+}
+
+.action-button svg {
+    margin-right: 8px; /* Espaçamento entre ícone e texto */
+}
