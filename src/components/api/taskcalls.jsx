@@ -28,6 +28,19 @@ class TaskCalls
             setError(err);
         }
     };
+
+
+
+    async CreateTask(dataJson, setError) {
+        try {
+            console.log(dataJson);
+            await instance.post('/api/task', dataJson).then(response => {
+                return response;
+            })
+        } catch (err) {
+            setError(err);
+        }
+    };
 }
 
 

@@ -3,9 +3,11 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { MyProvider } from './components/context';
+
+import CreateTask from './components/createtask/createtask'
+import EditTask from "./components/edittask/edittask";
 import Header from "./components/header/header"
 import Home from "./components/home/home";
-import EditTask from "./components/edittask/edittask";
 
 const App = () => {
   return (  
@@ -14,6 +16,7 @@ const App = () => {
       <MyProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/create-task" element={<CreateTask />} />
           <Route path="/edit-task" element={<EditTask />} />
         </Routes>
       </MyProvider>

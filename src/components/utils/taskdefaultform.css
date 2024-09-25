@@ -6,7 +6,7 @@
     background-color: #f4f4f4;
 }
 
-.edit-task-form {
+.task-form {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -16,12 +16,12 @@
     flex-direction: column;
 }
 
-.edit-task-form h2 {
+.task-form h2 {
     margin-bottom: 16px;
     text-align: center;
 }
 
-.edit-task-form input {
+.task-form input {
     margin-bottom: 12px;
     padding: 10px;
     border: 1px solid #ddd;
@@ -29,7 +29,7 @@
     font-size: 1em;
 }
 
-.edit-task-form input:focus {
+.task-form input:focus {
     border-color: #007bff;
     outline: none;
 }
