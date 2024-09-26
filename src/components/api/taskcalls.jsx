@@ -33,10 +33,12 @@ class TaskCalls
 
     async CreateTask(dataJson, setError) {
         try {
-            console.log(dataJson);
-            await instance.post('/api/task', dataJson).then(response => {
-                return response;
+            const response = await instance.post('/api/task', dataJson, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
+            return response;
         } catch (err) {
             setError(err);
         }
