@@ -43,6 +43,15 @@ class TaskCalls
             setError(err);
         }
     };
+
+    async DeleteTask(setError, taskID) {
+        try {
+            const response = await instance.delete(`/api/task?taskID=${taskID}`);
+            return response;
+        } catch (err) {
+            setError(err);
+        }
+    }
 }
 
 

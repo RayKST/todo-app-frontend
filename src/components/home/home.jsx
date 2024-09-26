@@ -1,5 +1,7 @@
 import './home.css';
 import TaskCalls from '../api/taskcalls'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 //import { useMyContext } from '../context';
@@ -8,14 +10,21 @@ function Home() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     let navigate = useNavigate();
+    const taskCallsInstance = new TaskCalls()
 
     useEffect(() => {
-        new TaskCalls().GetTask(setData, setError);
+        taskCallsInstance.GetTask(setData, setError);
     }, []);
     
     function handleEditTask(task) 
     {
         navigate(`/edit-task?taskID=${task.task['ID']}`);
+    }
+
+    async function handleDeleteTask(task) 
+    {
+        const response = await taskCallsInstance.DeleteTask(setError, task['ID']);
+        console.log(response);
     }
     
     if (error) return <div>Error: {error.message}</div>;
@@ -28,6 +37,9 @@ function Home() {
     const tasksCards = data.tasks.map((task, index) => (
         <div className="card" key={index}>
             <div className="card-content">
+                <button className='card-delete-button' onClick={() => handleDeleteTask(task)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                </button>
                 <h2 className="card-title">{task['Title']}</h2>
                 <p className="card-description">{task['Description']}</p>
                 <p className="card-start-date">{task['StartDate']}</p>

@@ -51,6 +51,16 @@ body {
     background-color: #0056b3;
 }
 
+.card-delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red; /* ou outra cor */
+}
+
 .card-start-date,
 .card-end-date {
     font-size: 0.9em;
