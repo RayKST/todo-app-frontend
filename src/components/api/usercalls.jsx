@@ -2,13 +2,14 @@ import instance from "./api";
 
 class UserCalls 
 {
-    async GetLogin(dataJson, setError) {
+    async ValidateLogin(dataJson, setError) {
         try {
             const response = await instance.post('/api/login', dataJson, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
+            });
+            return response;
         } catch (err) {
             setError(err);
         }

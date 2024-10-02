@@ -28,11 +28,15 @@ function Login(){
         };
 
         try {
-            const response = await userCallsInstance.GetLogin(userData, setError); 
-            setData(response.data)
-            //navigate('/');
+            await userCallsInstance.ValidateLogin(userData, setError).then(response => {
+                setData(response);
+            });
+            if (data.status = 200)
+            {
+                navigate('/');
+            }
         } catch (err) {
-            //console.error('Login failed:', err);
+            console.error('Login failed:', err);
             navigate('/login');
         }
     }
