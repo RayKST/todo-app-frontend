@@ -9,6 +9,7 @@ import EditTask from "./components/edittask/edittask";
 import Header from "./components/header/header"
 import Home from "./components/home/home";
 import Login from "./components/login/login";
+import CreateLogin from "./components/login/createlogin";
 
 const App = () => {
   return (  
@@ -18,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create-task" element={<CreateTask />} />
+          <Route path="/create-login" element={<CreateLogin />} />
           <Route path="/edit-task" element={<EditTask />} />
           <Route path="/login" element={<Login />} />
         </Routes>

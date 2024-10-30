@@ -40,6 +40,10 @@ function Login(){
         }
     }
 
+    function createLogin () {
+        navigate('/create-login');
+    }
+
 
     return (
         <div className="form-container">
@@ -48,6 +52,7 @@ function Login(){
                 <input ref={loginRef} placeholder='Login' required />
                 <input ref={passwordRef} type='password' placeholder='Password' required />
                 <button type="button" className="submit-button" onClick={login}>Login</button>
+                <button type="button" className="submit-button" onClick={createLogin}>Criar Login</button>
             </form>
         </div>
     );

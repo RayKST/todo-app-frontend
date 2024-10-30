@@ -24,7 +24,6 @@ function CreateTask() {
 
         try {
             const response = taskCallsInstance.CreateTask(taskData, setError);
-            console.log(response); 
             navigate('/');
         } catch (err) {
             console.error('Create failed:', err);
