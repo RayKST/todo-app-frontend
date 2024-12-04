@@ -1,4 +1,5 @@
 import '../utils/taskdefaultform.css';
+import instance from '../api/api'
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import UserCalls from '../api/usercalls';
@@ -22,7 +23,7 @@ function Login(){
     async function login() {
         
         const userData = {
-            Login: loginRef.current.value,
+            Username: loginRef.current.value,
             Password: passwordRef.current.value
         };
 
@@ -30,7 +31,9 @@ function Login(){
             await userCallsInstance.ValidateLogin(userData, setError).then(response => {
                 if (response.status = 200)
                 {
-                        navigate('/');
+                    const token = response.data.Access_Token;
+                    instance.defaults['headers'].Authorization = `Bearer ${token}`
+                    navigate('/');
                 }
             });
             

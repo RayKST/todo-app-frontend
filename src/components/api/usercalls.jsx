@@ -4,7 +4,7 @@ class UserCalls
 {
     async ValidateLogin(dataJson, setError) {
         try {
-            const response = await instance.post('/api/login', dataJson, {
+            const response = await instance.post('/api/token', dataJson, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
