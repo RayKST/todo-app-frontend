@@ -2,14 +2,18 @@ import instance from "./api";
 
 class TaskCalls 
 {
-    async GetTask(setData, setError, taskID) {
+    async GetTask(setData, setError, taskID, ownerID) {
         try {
-            if (!taskID)
+            if (!taskID && !ownerID)
             {
                 const response = await instance.get('/api/task');
                 setData(response.data);
-            } else {
+            } else if (taskID){
                 const response = await instance.get(`/api/task?taskID=${taskID}`);
+                setData(response.data);
+            }
+            else if (ownerID) {
+                const response = await instance.get(`/api/task?ownerID=${ownerID}`);
                 setData(response.data);
             }
         } catch (err) {

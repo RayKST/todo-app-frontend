@@ -1,9 +1,11 @@
 import '../utils/taskdefaultform.css';
+import Cookies from 'universal-cookie';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import TaskCalls from '../api/taskcalls';
 
 function CreateTask() {
+    const cookie = new Cookies();
     const [error, setError] = useState(null);
     const taskCallsInstance = new TaskCalls();
     const navigate = useNavigate();
@@ -18,6 +20,7 @@ function CreateTask() {
         const taskData = {
             Title: titleRef.current.value,
             Description: descriptionRef.current.value,
+            OwnerID: cookie.get('loggedUser'),
             StartDate: startDateRef.current.value,
             EndDate: endDateRef.current.value,
         };

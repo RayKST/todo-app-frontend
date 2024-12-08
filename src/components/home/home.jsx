@@ -1,4 +1,5 @@
 import './home.css';
+import Cookies from 'universal-cookie';
 import TaskCalls from '../api/taskcalls'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -7,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 //import { useMyContext } from '../context';
 
 function Home() {
+    const cookie = new Cookies();
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     let navigate = useNavigate();
-    const taskCallsInstance = new TaskCalls()
-
+    const taskCallsInstance = new TaskCalls();
+    
     useEffect(() => {
-        taskCallsInstance.GetTask(setData, setError);
+        taskCallsInstance.GetTask(setData, setError, null, cookie.get('loggedUser'));
     }, []);
     
     function handleEditTask(task) 

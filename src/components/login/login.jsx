@@ -1,4 +1,5 @@
 import '../utils/taskdefaultform.css';
+import Cookies from 'universal-cookie';
 import instance from '../api/api'
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import UserCalls from '../api/usercalls';
 
 function Login(){
 
+    const cookies = new Cookies();
     const [error, setError] = useState(null);
     const userCallsInstance = new UserCalls();
     const navigate = useNavigate();
@@ -32,6 +34,9 @@ function Login(){
                 if (response.status = 200)
                 {
                     const token = response.data.Access_Token;
+                    cookies.set('userAcessToken', token);
+                    cookies.set('loggedUser', response.data.Uid);
+
                     instance.defaults['headers'].Authorization = `Bearer ${token}`
                     navigate('/');
                 }
