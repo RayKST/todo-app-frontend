@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import StatusCalls from '../api/statuscalls';
 //import { useMyContext } from '../context';
 
 function Home() {
@@ -13,6 +14,7 @@ function Home() {
     const [error, setError] = useState(null);
     let navigate = useNavigate();
     const taskCallsInstance = new TaskCalls();
+    new StatusCalls().GetStatus(cookie, setError);
     
     useEffect(() => {
         taskCallsInstance.GetTask(setData, setError, null, cookie.get('loggedUser'));
@@ -35,7 +37,8 @@ function Home() {
     if (!data || !data.tasks) {
         return <div>Loading...</div>;
     }
-
+    
+    const statusData = cookie.get('statusData');
     const tasksCards = data.tasks.map((task, index) => (
         <div className="card" key={index}>
             <div className="card-content">
@@ -45,7 +48,8 @@ function Home() {
                 <h2 className="card-title">{task['Title']}</h2>
                 <p className="card-description">{task['Description']}</p>
                 <p className="card-start-date">{task['StartDate']}</p>
-                <p className="card-end-date">{task['EndDate']}</p>          
+                <p className="card-end-date">{task['EndDate']}</p>
+                <p className="card-status">Card Status: {statusData.todo_status[task['StatusID']-1].Description}</p>
                 <button className='card-button' onClick={() => handleEditTask({task})}>Editar tarefa</button>              
             </div>
         </div>
